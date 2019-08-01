@@ -35,6 +35,10 @@ class ComposerStaticInite69a98cf69fac46de71828bd15f9d3b1
         array (
             'Nesk\\Rialto\\' => 12,
         ),
+        'M' => 
+        array (
+            'Monolog\\' => 8,
+        ),
         'D' => 
         array (
             'Doctrine\\Instantiator\\' => 22,
@@ -81,6 +85,10 @@ class ComposerStaticInite69a98cf69fac46de71828bd15f9d3b1
         'Nesk\\Rialto\\' => 
         array (
             0 => __DIR__ . '/..' . '/nesk/rialto/src',
+        ),
+        'Monolog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
         'Doctrine\\Instantiator\\' => 
         array (

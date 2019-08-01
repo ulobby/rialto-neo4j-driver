@@ -2,6 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 use App\FileSystem;
+use App\HelloWorld;
 
 class ExampleTest extends TestCase
 {
@@ -10,5 +11,12 @@ class ExampleTest extends TestCase
 		$fs = new FileSystem;
 		$stats = $fs->statSync(__DIR__ . '/ExampleTest.php');
 		$this->assertTrue(true, $stats->isFile());
+	}
+
+	public function testHelloWorldConnection()
+	{
+		$helloWorld = new HelloWorld(["name" => "Simon"]);
+		$string = $helloWorld->printHello();
+		$this->assertEquals("Hello Simon", $string);
 	}
 }
