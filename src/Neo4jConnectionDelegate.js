@@ -6,17 +6,19 @@ class Row
 	constructor(record) {
 		this.obj = {}
 		record.forEach(function(value, key) {
-			console.log("Constructor: " + value.constructor.name)
+			// Serialize the returned record to an object
 			if (value.constructor.name === "Node"){
 				this.obj[key] = Object.assign({
 					id: value.identity.toInt(),
 					labels: value.labels,
 				}, value.properties);
+
+			} else if (value.constructor.name === "Integer") {
+				this.obj[key] = value.toInt();
 			} else {
 				this.obj[key] = value;
 			}
 		}.bind(this));
-		console.error("Object ", this.obj)
 	}
 
 	toObject() {
