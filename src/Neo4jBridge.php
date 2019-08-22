@@ -7,7 +7,7 @@ use Monolog\Handler\StreamHandler;
 
 use App\Neo4jConnectionProcessDelegate;
 
-class Neo4jConnection extends AbstractEntryPoint
+class Neo4jBridge extends AbstractEntryPoint
 {
 
     public function __construct(array $userOptions = [])

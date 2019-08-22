@@ -1,9 +1,9 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use App\Neo4jConnection;
+use App\Neo4jBridge;
 
-class Neo4jConnectionTest extends TestCase
+class Neo4jBridgeTest extends TestCase
 {
 	private $driver;
 
