@@ -1,6 +1,6 @@
 <?php
 
-namespace Bridge;
+namespace App\Bridge;
 
 use App\Neo4jBridge;
 
@@ -8,15 +8,9 @@ class Client
 {
 	private $bridge;
 
-	public function __construct(string $host, string $port, string $user, string $password)
+	public function __construct(\App\Neo4jBridge $bridge)
 	{
-		$params = [
-			"host" => $host,
-			"port" => $port,
-			"user" => $user,
-			"password" => $password
-		];
-		$this->bridge = new Neo4jBridge($bridge);
+		$this->bridge = $bridge;
 	}
 
 	public function beginTransaction(): Transaction
