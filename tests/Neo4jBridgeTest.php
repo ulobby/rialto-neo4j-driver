@@ -1,4 +1,4 @@
-ve<?php
+<?php
 
 use PHPUnit\Framework\TestCase;
 use App\Neo4jBridge;
