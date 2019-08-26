@@ -18,8 +18,9 @@ class Client
 
 	}
 
-	public function executeCypherQuery(): ResultSet
+	public function executeCypherQuery(CypherQuery $query): ResultSet
 	{
-
+		$results = $this->bridge->run($query->getQuery(), $query->getParameters());
+		return $results;
 	}
 }
