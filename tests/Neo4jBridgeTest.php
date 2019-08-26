@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use App\Neo4jBridge;
+use Neo4jBridge\Neo4jBridge;
 
 class Neo4jBridgeTest extends TestCase
 {

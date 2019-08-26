@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Bridge;
+namespace Neo4jBridge\Bridge;
 
-use App\Neo4jBridge;
+use Neo4jBridge\Neo4jBridge;
 
 class Client
 {
 	private $bridge;
 
-	public function __construct(\App\Neo4jBridge $bridge)
+	public function __construct(\Neo4jBridge\Neo4jBridge $bridge)
 	{
 		$this->bridge = $bridge;
 	}

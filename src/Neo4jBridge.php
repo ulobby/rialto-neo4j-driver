@@ -1,11 +1,11 @@
 <?php
-namespace App;
+namespace Neo4jBridge;
 
 use Nesk\Rialto\AbstractEntryPoint;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-use App\Neo4jConnectionProcessDelegate;
+use Neo4jBridge\Neo4jConnectionProcessDelegate;
 
 class Neo4jBridge extends AbstractEntryPoint
 {

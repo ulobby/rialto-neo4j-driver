@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Bridge;
+namespace Neo4jBridge\Bridge;
 
 class CypherQuery
 {

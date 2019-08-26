@@ -1,5 +1,5 @@
 <?php
-namespace App;
+namespace Neo4jBridge;
 
 use Nesk\Rialto\AbstractEntryPoint;
 

@@ -1,8 +1,8 @@
 <?php
-namespace App;
+namespace Neo4jBridge;
 
 use Nesk\Rialto\AbstractEntryPoint;
-use App\HelloWorldProcessDelegate;
+use Neo4jBridge\HelloWorldProcessDelegate;
 
 class HelloWorld extends AbstractEntryPoint
 {

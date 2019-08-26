@@ -1,8 +1,8 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use App\FileSystem;
-use App\HelloWorld;
+use Neo4jBridge\FileSystem;
+use Neo4jBridge\HelloWorld;
 
 class ExampleTest extends TestCase
 {

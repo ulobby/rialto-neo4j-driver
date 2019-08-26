@@ -1,6 +1,6 @@
 <?php
 
-namespace Bridge;
+namespace Neo4jBridge\Bridge;
 
 class Transaction
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Neo4jBridge;
 
 use Nesk\Rialto\Traits\UsesBasicResourceAsDefault;
 use Nesk\Rialto\Interfaces\ShouldHandleProcessDelegation;
@@ -15,7 +15,7 @@ class Neo4jConnectionProcessDelegate implements ShouldHandleProcessDelegation
     public function resourceFromOriginalClassName(string $jsClassName): ?string
     {
         // Generate the appropriate class name for PHP
-        $class = "\App\\{$jsClassName}Resource";
+        $class = "\Neo4jBridge\\{$jsClassName}Resource";
         // If the PHP class doesn't exist, return null, it will automatically create a basic resource.
         return class_exists($class) ? $class : null;
     }
