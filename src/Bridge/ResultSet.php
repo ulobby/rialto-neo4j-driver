@@ -1,9 +1,16 @@
 <?php
 
-namespace Bridge;
+namespace App\Bridge;
 
-class ResultSet
+class ResultSet implements \Countable
 {
+	private $data = [];
+
+	public function count(): int
+	{
+		return count($this->data);
+	}
+
 	public function getColumns(): array
 	{
 
