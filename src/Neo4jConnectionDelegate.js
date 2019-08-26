@@ -52,9 +52,46 @@ class Neo4j
 			});
 		return res;
 	}
+
+	async readTransaction(query, parameters) {
+		let res = [];
+		let session = this.driver.session();
+		let readTxResultPromise = session.readTransaction((transaction) => {
+			let result = transaction.run(query, parameters);
+			return result;
+		});
+		await readTxResultPromise.then(function(result, summary) {
+			result.records.forEach((record) => res.push(new Row(record).toObject()));
+			session.close();
+		}.bind(this))
+		.catch(function(error) {
+			session.close();
+			throw error;
+		});
+		return res;
+	}
+
+	async writeTransaction(query, parameters) {
+		let res = [];
+		let session = this.driver.session();
+		let writeTxResultPromise = session.writeTransaction((transaction) => {
+			let result = transaction.run(query, parameters);
+			return result;
+		});
+		await writeTxResultPromise.then(function(result) {
+			res = result.records;
+			session.close();
+		}.bind(this))
+		.catch(function(error) {
+			console.log(error);
+			session.close();
+			throw error;
+		});
+		return res;
+	}
 }
 
-module.exports = class HelloWorldConnectionDelegate extends ConnectionDelegate
+module.exports = class Neo4jConnectionDelegate extends ConnectionDelegate
 {
 	constructor(options) {
 		super(options)

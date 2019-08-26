@@ -1,4 +1,4 @@
-<?php
+ve<?php
 
 use PHPUnit\Framework\TestCase;
 use App\Neo4jBridge;
@@ -14,7 +14,7 @@ class Neo4jBridgeTest extends TestCase
 			"user" => "neo4j",
 			"password" => "dev"
 		];
-		$this->driver = new Neo4jConnection($params);
+		$this->driver = new Neo4jBridge($params);
 	}
 
 	public function tearDown(): void
@@ -56,6 +56,20 @@ class Neo4jBridgeTest extends TestCase
 		$this->driver->run($query, $params);
 		$query = "MATCH (p:Person) WHERE p.name = {name} RETURN p, count(p) as cnt";
 		$result = $this->driver->run($query, $params);
+		$this->assertEquals(1,count($result));
+		$this->assertArrayHasKey("p", $result[0]);
+		$this->assertArrayHasKey("cnt", $result[0]);
+		$node = $result[0]["p"];
+		$this->assertEquals(["id", "labels", "name"], array_keys($node));
+	}
+
+	public function testCanCommitAndReturnTransactions()
+	{
+		$query = "CREATE (p:Person) SET p.name = {name} RETURN p";
+		$params = ["name" => "testy mctesty"];
+		$this->driver->writeTransaction($query, $params);
+		$query = "MATCH (p:Person) WHERE p.name = {name} RETURN p, count(p) as cnt";
+		$result = $this->driver->readTransaction($query, $params);
 		$this->assertEquals(1,count($result));
 		$this->assertArrayHasKey("p", $result[0]);
 		$this->assertArrayHasKey("cnt", $result[0]);
