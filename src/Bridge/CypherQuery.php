@@ -1,6 +1,6 @@
 <?php
 
-namespace Bridge;
+namespace App\Bridge;
 
 class CypherQuery
 {
@@ -15,8 +15,15 @@ class CypherQuery
 		$this->query = $query;
 		$this->parameters = $parameters;
 	}
+
 	public function getResultSet(): ResultSet
 	{
+		if ($this->result === null) {
+			$this->result = $this->client->executeCypherQuery($this);
+		}
+		return $this->result;
+	}
+
 	public function getQuery()
 	{
 		return $this->query;
