@@ -24,7 +24,7 @@
         "monolog/monolog": "^1.24"
     },
     "scripts": {
-        "post-install-cmd": "npm install",
+        "post-install-cmd": "npm install"
     },
     "require-dev": {
         "phpunit/phpunit": "~6.0",
