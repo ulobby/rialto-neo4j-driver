@@ -1,0 +1,7 @@
+{
+  "name": "simon/rialto-neo4j-driver",
+  "version": "0.1.0",
+  "dependencies": {
+    "@nesk/rialto": "^1.3.0"
+  }
+}
