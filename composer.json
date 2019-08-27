@@ -1,5 +1,5 @@
 {
-    "name": "simon/rialto-neo4j-driver",
+    "name": "simon/neo4j",
     "description": "Exposes the official Neo4j JS driver to PHP",
     "type": "library",
     "license": "MIT",
