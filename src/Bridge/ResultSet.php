@@ -2,7 +2,7 @@
 
 namespace Neo4jBridge\Bridge;
 
-class ResultSet implements \Countable
+class ResultSet implements \Countable, \Iterator
 {
 	private $data = [];
 
