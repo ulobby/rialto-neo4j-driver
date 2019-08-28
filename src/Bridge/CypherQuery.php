@@ -13,7 +13,11 @@ class CypherQuery
 	{
 		$this->client = $client;
 		$this->query = $query;
-		$this->parameters = $parameters;
+		if (count($parameters) > 0) {
+			$this->parameters = $parameters;
+		} else {
+			$this->parameters = null;
+		}
 	}
 
 	public function getResultSet(): ResultSet
