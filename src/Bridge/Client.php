@@ -15,7 +15,7 @@ class Client
 
 	public function beginTransaction(): Transaction
 	{
-		return new Transaction();
+		return new Transaction($this);
 	}
 
 	public function executeCypherQuery(CypherQuery $query): ResultSet
