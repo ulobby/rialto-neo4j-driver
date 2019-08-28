@@ -15,12 +15,22 @@ class Client
 
 	public function beginTransaction(): Transaction
 	{
-
+		return new Transaction();
 	}
 
 	public function executeCypherQuery(CypherQuery $query): ResultSet
 	{
 		$results = new ResultSet($this->bridge->run($query->getQuery(), $query->getParameters()));
 		return $results;
+	}
+
+	public function runWriteTransaction(Transaction $transaction): ResultSet
+	{
+
+	}
+
+	public function runReadTransaction(Transaction $transaction): ResultSet
+	{
+
 	}
 }
