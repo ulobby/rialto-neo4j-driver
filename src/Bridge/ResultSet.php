@@ -25,7 +25,7 @@ class ResultSet implements \Countable, \Iterator, \ArrayAccess
 
 	public function offsetGet($offset)
 	{
-		return $this->rows[$offset];
+		return $this->data[$offset];
 	}
 
 	public function offsetSet($offset, $value)
