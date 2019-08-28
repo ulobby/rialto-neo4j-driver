@@ -9,7 +9,7 @@ class CypherQuery
 	private $query;
 	private $parameters;
 
-	public function __construct(Client $client, string $query, array $parameters)
+	public function __construct(Client $client, string $query, array $parameters = array())
 	{
 		$this->client = $client;
 		$this->query = $query;
