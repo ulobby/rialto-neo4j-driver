@@ -2,7 +2,7 @@
 
 namespace Neo4jBridge\Bridge;
 
-class ResultSet implements \Countable, \Iterator
+class ResultSet implements \Countable, \Iterator, \ArrayAccess
 {
 	private $data = [];
 
@@ -14,6 +14,31 @@ class ResultSet implements \Countable, \Iterator
 	public function getColumns(): array
 	{
 
+	}
+
+	// ArrayAccess API
+
+	public function offsetExists($offset)
+	{
+		return isset($this->data[$offset]);
+	}
+
+	public function offsetGet($offset)
+	{
+		if (!isset($this->rows[$offset])) {
+			$this->rows[$offset] = new Row($this->client, $this->columns, $this->data[$offset]);
+		}
+		return $this->rows[$offset];
+	}
+
+	public function offsetSet($offset, $value)
+	{
+		throw new \BadMethodCallException("You cannot modify a query result.");
+	}
+
+	public function offsetUnset($offset)
+	{
+		throw new \BadMethodCallException("You cannot modify a query result.");
 	}
 
 	// Countable API
