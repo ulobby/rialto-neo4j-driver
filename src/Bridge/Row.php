@@ -43,7 +43,7 @@ class Row implements \Countable, \Iterator, \ArrayAccess {
 		if (!isset($this->data[$offset])) {
 			$data = $this->raw[$offset];
 			if (is_array($data)) {
-				$data = new Row(array_keys($raw), array_values($raw));
+				$data = new Row(array_keys($data), array_values($data));
 			}
 			$this->data[$offset] = $data;
 		}
