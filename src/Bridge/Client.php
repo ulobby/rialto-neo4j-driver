@@ -20,7 +20,8 @@ class Client
 
 	public function executeCypherQuery(CypherQuery $query): ResultSet
 	{
-		$results = new ResultSet($this->bridge->run($query->getQuery(), $query->getParameters()));
+		$raw = $this->bridge->run($query->getQuery(), $query->getParameters());
+		$results = new ResultSet($raw, $query->getExpectedColumns());
 		return $results;
 	}
 
