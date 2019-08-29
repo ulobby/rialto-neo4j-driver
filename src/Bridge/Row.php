@@ -9,7 +9,7 @@ class Row implements \Countable, \Iterator, \ArrayAccess {
 	protected $columns = null;
 	protected $position = 0;
 	
-	public __construct(array $columns, array $rowData) {
+	public function __construct(array $columns, array $rowData) {
 		$this->columns = $columns;
 		$this->data = [];
 		$this->raw = $rowData;
