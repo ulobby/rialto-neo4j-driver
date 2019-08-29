@@ -8,11 +8,13 @@ class CypherQuery
 	private $client;
 	private $query;
 	private $parameters;
+	private $expectedColumns;
 
 	public function __construct(Client $client, string $query, array $parameters = array())
 	{
 		$this->client = $client;
 		$this->query = $query;
+		$this->expectedColumns = $this->parseColumnsFromQuery($this->query);
 		if (count($parameters) > 0) {
 			$this->parameters = $parameters;
 		} else {
@@ -38,6 +40,11 @@ class CypherQuery
 		return $this->parameters;
 	}
 
+	public function getExpectedColumns()
+	{
+		return $this->expectedColumns;
+	}
+
 	/**
 	 * Parse out an array of return columns expected from the query
 	 * The query is assumed to follow the schema 
@@ -46,18 +53,21 @@ class CypherQuery
 	 * [ORDER BY, LIMIT, SKIP]
 	 * @return array array of columns
 	 */
-	public function parseColumnsFromQuery()
+	protected function parseColumnsFromQuery()
 	{
 		$startToken = "return";
 		$endTokens = ["order by", "limit", "skip"];
-		$text = $this->getQuery();
+		$text = mb_strtolower($this->getQuery());
+		// Check if the startToken exists in the query and record its position
 		$startPos = mb_strpos($text, $startToken);
 		// Return an empty array if no columns
 		if ($startPos === false) {
 			return [];
 		}
+		// The columns start after the string RETURN plus a space
+		$startPos +=  + mb_strlen($startToken) + 1;
 		// Find potential endpoints of the column definition
-		$endPositions = [count($text)];
+		$endPositions = [mb_strlen($text)];
 		foreach ($endTokens as $token) {
 			$pos = mb_strpos($text, $token);
 			if ($pos) {
@@ -70,8 +80,8 @@ class CypherQuery
 		$columns = explode(",", $columnDef);
 		// Split out any aliased columns like 'p AS person'
 		$columns = array_map(function($column) {
-				$unaliased = explode($column, " as ");
-				return $unaliased[count($unaliased)];
+				$unaliased = explode(" as ", $column);
+				return trim($unaliased[count($unaliased) - 1]);
 			}, $columns);
 		return $columns;
 	}
