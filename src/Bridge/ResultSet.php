@@ -4,8 +4,10 @@ namespace Neo4jBridge\Bridge;
 
 class ResultSet implements \Countable, \Iterator, \ArrayAccess
 {
-	private $data = [];
-	private $row = [];
+	protected $rows = array();
+	protected $data = array();
+	protected $columns = array();
+	protected $position = 0;
 
 	public function __construct(array $data, array $columns)
 	{
