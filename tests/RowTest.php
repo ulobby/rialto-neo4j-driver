@@ -24,4 +24,13 @@ class RowTest extends TestCase
 		$this->assertTrue($row[0] === "mark");
 		$this->assertTrue($row[1] ==="Los Angeles");
 	}
+
+	public function testsCanCreateRowOfRows()
+	{
+		$columns = ["name", "location"];
+		$data = ["name" => "mark", "location" => "Los Angeles"];
+		$innerRow = new Row($columns, $data);
+		$outerRow = new Row(["a"], ["a" => $innerRow]);
+		$this->assertEquals($outerRow["a"], $innerRow);
+	}
 }

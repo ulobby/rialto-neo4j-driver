@@ -12,7 +12,7 @@ class Row implements \Countable, \Iterator, \ArrayAccess {
 	public function __construct($columns, $rowData) {
 		$this->columns = $columns;
 		$this->data = [];
-		$this->raw = array_values($rowData);
+		$this->raw = array_values((array)$rowData);
 	}
 
 
