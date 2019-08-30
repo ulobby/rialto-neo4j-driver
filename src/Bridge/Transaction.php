@@ -5,9 +5,11 @@ namespace Neo4jBridge\Bridge;
 class Transaction
 {
 	private $write;
+	private $client;
 
 	public function __construct(Client $client, $write=true)
 	{
+		$this->client = $client;
 		$this->write = $write;
 	}
 
