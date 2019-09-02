@@ -32,7 +32,6 @@ class Node
 
 	public function setProperties($properties)
 	{
-		$this->loadProperties();
 		foreach ($properties as $property => $value) {
 			$this->setProperty($property, $value);
 		}
@@ -41,7 +40,6 @@ class Node
 	
 	public function setProperty($property, $value)
 	{
-		$this->loadProperties();
 		if ($value === null) {
 			$this->removeProperty($property);
 		} else {
