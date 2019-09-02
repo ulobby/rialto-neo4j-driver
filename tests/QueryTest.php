@@ -6,7 +6,7 @@ use Neo4jBridge\Bridge\CypherQuery as Query;
 
 class QueryTest extends TestCase
 {
-	public function testsParsesExpectedColumns()
+	public function testParsesExpectedColumns()
 	{
 		$client = Mockery::mock(Client::class);
 
