@@ -4,12 +4,14 @@ namespace Neo4jBridge\Bridge;
 
 class Row implements \Countable, \Iterator, \ArrayAccess {
 
+	protected $client;
 	protected $raw = null;
 	protected $data = null;
 	protected $columns = null;
 	protected $position = 0;
 	
-	public function __construct($columns, $rowData) {
+	public function __construct(Client $client, $columns, $rowData) {
+		$this->client = $client;
 		$this->columns = $columns;
 		$this->data = [];
 		$this->raw = array_values((array)$rowData);
@@ -39,11 +41,13 @@ class Row implements \Countable, \Iterator, \ArrayAccess {
 		if (!is_integer($offset)) {
 			$offset = array_search($offset, $this->columns);
 		}
+		// Get the key of the offset for the EntityMapper
+		$key = $this->columns[$offset];
 
 		if (!isset($this->data[$offset])) {
-			$data = $this->raw[$offset];
+			$data = $this->client->getEntityMapper()->getEntityFor($key, $this->raw[$offset]);
 			if (is_array($data)) {
-				$data = new Row(array_keys($data), array_values($data));
+				$data = new Row($this->client, array_keys($data), array_values($data));
 			}
 			$this->data[$offset] = $data;
 		}
