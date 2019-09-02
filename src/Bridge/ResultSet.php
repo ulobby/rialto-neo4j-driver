@@ -4,15 +4,17 @@ namespace Neo4jBridge\Bridge;
 
 class ResultSet implements \Countable, \Iterator, \ArrayAccess
 {
+	protected $client;
 	protected $rows = array();
 	protected $data = array();
 	protected $columns = array();
 	protected $position = 0;
 
-	public function __construct(array $data, array $columns)
+	public function __construct(Client $client, array $raw)
 	{
-		$this->data = $data;
-		$this->columns = $columns;
+		$this->client = $client;
+		$this->data = $raw['data'];
+		$this->columns = $raw['columns'];
 	}
 
 	public function getColumns(): array
@@ -30,7 +32,7 @@ class ResultSet implements \Countable, \Iterator, \ArrayAccess
 	public function offsetGet($offset)
 	{
 		if (!isset($this->rows[$offset])) {
-			$this->rows[$offset] = new Row($this->columns, $this->data[$offset]);
+			$this->rows[$offset] = new Row($this->client, $this->columns, $this->data[$offset]);
 		}
 		return $this->rows[$offset];
 	}
