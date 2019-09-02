@@ -65,7 +65,7 @@ class CypherQuery
 			return [];
 		}
 		// The columns start after the string RETURN plus a space
-		$startPos +=  + mb_strlen($startToken) + 1;
+		$startPos += mb_strlen($startToken) + 1;
 		// Find potential endpoints of the column definition
 		$endPositions = [mb_strlen($text)];
 		foreach ($endTokens as $token) {
