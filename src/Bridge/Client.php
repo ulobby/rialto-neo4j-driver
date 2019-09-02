@@ -21,7 +21,6 @@ class Client
 
 	public function executeCypherQuery(CypherQuery $query): ResultSet
 	{
-		//TODO map the rows to entities
 		$raw = $this->bridge->run($query->getQuery(), $query->getParameters());
 		$this->entityMapper = new EntityMapper($query); 
 		$results = new ResultSet($this, ['data' => $raw, 'columns' => $query->getExpectedColumns()]);
@@ -30,7 +29,7 @@ class Client
 
 	public function getEntityMapper()
 	{
-		return $this->$entityMapper;
+		return $this->entityMapper;
 	}
 
 	public function runWriteTransaction(Transaction $transaction): ResultSet
