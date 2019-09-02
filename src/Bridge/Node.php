@@ -32,7 +32,12 @@ class Node
 
 	public function setProperties($properties)
 	{
+		var_dump($properties);
 		foreach ($properties as $property => $value) {
+			if ($property === "id") {
+				$this->setId((int)$value);
+				continue;
+			}
 			$this->setProperty($property, $value);
 		}
 		return $this;
