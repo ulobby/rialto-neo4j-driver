@@ -32,6 +32,18 @@ class Client
 		return $this->entityMapper;
 	}
 
+	/**
+	 * Create a new node object bound to this client
+	 *
+	 * @param array $properties
+	 * @return Node
+	 */
+	public function makeNode($properties=array())
+	{
+		$node = new Node();
+		return $node->setProperties($properties);
+	}
+
 	public function runWriteTransaction(Transaction $transaction): ResultSet
 	{
 
