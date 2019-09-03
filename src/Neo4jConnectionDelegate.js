@@ -41,6 +41,12 @@ class Neo4j
 		this.driver = neo4j.driver("bolt + routing://" + host, neo4j.auth.basic(user, password));
 	}
 
+	// Due to JS not having specific integers we will assume that any number that can be an integer
+	// should be an integer
+	numbersToInt(num) {
+		return Number.isInteger(num) ? neo4j.int(num) : num;
+	}
+
 	close() {
 		this.driver.close();
 	}
