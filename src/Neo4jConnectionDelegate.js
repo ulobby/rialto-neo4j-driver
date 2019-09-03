@@ -10,7 +10,7 @@ class Row
 			if (value.constructor.name === "Node"){
 				this.obj[key] = Object.assign({
 					id: value.identity.toInt(),
-					labels: value.labels,
+					//labels: value.labels,
 				}, value.properties);
 
 			} else if (value.constructor.name === "Integer") {
