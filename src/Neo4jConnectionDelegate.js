@@ -24,6 +24,12 @@ class Row
 	toObject() {
 		return this.obj;
 	}
+
+	// Due to JS not having specific integers we will assume that any number that can be an integer
+	// should be an integer
+	numbersToInt(num) {
+		return Number.isInteger(num) ? neo4j.int(num) : num;
+	}
 }
 
 class Neo4j 
@@ -41,6 +47,13 @@ class Neo4j
 
 	async run(query, parameters) {
 		let res = [];
+		if (parameters) {
+			let castParams = {};
+			Object.keys(parameters).forEach(function(key) {
+				castParams[key] = this.numbersToInt(parameters[key]);
+			}.bind(this));
+			parameters = castParams;
+		}
 		let session = this.driver.session();
 		await session.run(query, parameters)
 			.then(function(result) {
