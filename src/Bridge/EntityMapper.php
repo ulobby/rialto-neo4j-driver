@@ -41,7 +41,7 @@ class EntityMapper
 		return $mapping;
 	}
 
-	public function getEntityFor(string $key, array $raw)
+	public function getEntityFor(string $key, $raw)
 	{
 		$type = $this->mapping[$key];
 		if ($type === "node") {
