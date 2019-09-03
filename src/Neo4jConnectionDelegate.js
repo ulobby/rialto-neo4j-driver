@@ -41,6 +41,13 @@ class Neo4j
 
 	async run(query, parameters) {
 		let res = [];
+		if (parameters) {
+			let castParams = {};
+			Object.keys(parameters).forEach(function(key) {
+				castParams[key] = this.numbersToInt(parameters[key]);
+			}.bind(this));
+			parameters = castParams;
+		}
 		let session = this.driver.session();
 		await session.run(query, parameters)
 			.then(function(result) {
