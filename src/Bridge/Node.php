@@ -8,6 +8,16 @@ class Node
 	protected $labels = [];
 	protected $id = null;
 
+	public static function get(Client $client, array $ids)
+	{
+		if (empty($array)) {
+			throw new \Exception("Empty id array passed to Node::get", 1);	
+		}
+		$queryString = "MATCH (n) WHERE id(n) IN {ids} RETURN n";
+		$query = new CypherQuery($client, $queryString);
+		return $client->executeCypherQuery($query);
+	}
+
 	public function setClient(Client $client)
 	{
 		$this->client = $client;

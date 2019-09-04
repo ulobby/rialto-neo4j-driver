@@ -40,6 +40,13 @@ class Client
 		return $label;
 	}
 
+	public function getNode(int $id)
+	{
+		$node = $this->makeNode();
+		$node->setId($id);
+		
+	}
+
 	/**
 	 * Create a new node object bound to this client
 	 *
