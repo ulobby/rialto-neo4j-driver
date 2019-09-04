@@ -33,6 +33,14 @@ class Client
 	}
 
 	/**
+	* Currently labels do not have their own class, so this simply returns the input
+	 */
+	public function makeLabel(string $label)
+	{
+		return $label;
+	}
+
+	/**
 	 * Create a new node object bound to this client
 	 *
 	 * @param array $properties
