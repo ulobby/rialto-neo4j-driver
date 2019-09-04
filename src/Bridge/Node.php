@@ -4,10 +4,13 @@ namespace Neo4jBridge\Bridge;
 
 class Node
 {
+	protected $client;
+	protected $labels = [];
+	protected $id = null;
 
-	public function __construct()
+	public function setClient(Client $client)
 	{
-		return;
+		$this->client = $client;
 	}
 
 	public function getProperties()
@@ -23,6 +26,21 @@ class Node
 	public function getId()
 	{
 		return $this->id;
+	}
+
+	public function addLabels(array $labels)
+	{
+		$this->labels = array_merge($this->labels, $labels);
+	}
+
+	public function getLabels()
+	{
+		return $this->labels;
+	}
+
+	public function getLabelString()
+	{
+		return implode(":", $this->getLabels());
 	}
 
 	public function getProperty($property)
@@ -52,4 +70,20 @@ class Node
 		return $this;
 	}
 
+	public function save()
+	{
+		$parameters= [];
+		$parameters['properties'] = $this->getProperties();
+		if ($this->getId()) {
+			$idn = $this->getId();
+			$parameters['idn'] = $idn;
+			$query = "MATCH (n) WHERE id(n) = {idn} SET n = {properties} RETURN n";
+		} else {
+			$labels = $this->getLabelString();
+			$query = "CREATE (n{$labels}) SET n = {properties} RETURN n";
+		}
+		$queryObject = new CypherQuery($this->client, $query, $parameters);
+		$this->client->executeCypherQuery($queryObject);
+		return true;
+	}
 }
