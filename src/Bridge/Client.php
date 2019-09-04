@@ -41,6 +41,7 @@ class Client
 	public function makeNode($properties=array())
 	{
 		$node = new Node();
+		$node->setClient($this);
 		return $node->setProperties($properties);
 	}
 
