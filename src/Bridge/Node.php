@@ -50,7 +50,11 @@ class Node
 
 	public function getLabelString()
 	{
-		return implode(":", $this->getLabels());
+		$str = implode(":", $this->getLabels());
+		if (mb_strlen($str)) {
+			$str = ":" . $str;
+		}
+		return $str;
 	}
 
 	public function getProperty($property)
