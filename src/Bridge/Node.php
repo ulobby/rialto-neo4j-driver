@@ -28,7 +28,7 @@ class Node
 		return $this->properties;
 	}
 
-	public function setId(int $id)
+	public function setId(?int $id=null)
 	{
 		$this->id = $id;
 	}
@@ -93,7 +93,9 @@ class Node
 			$query = "CREATE (n{$labels}) SET n = {properties} RETURN n";
 		}
 		$queryObject = new CypherQuery($this->client, $query, $parameters);
-		$this->client->executeCypherQuery($queryObject);
+		$results = $this->client->executeCypherQuery($queryObject);
+		$self = $results[0]['n'];
+		$this->setId($self->getId());
 		return true;
 	}
 }

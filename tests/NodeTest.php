@@ -26,6 +26,12 @@ class NodeTest extends TestCase
 		$this->driver->close();
 	}
 
+	public function testCanCreateNodeWithoutId()
+	{
+		$node = $this->client->getNode();
+		$this->assertNull($node->getId());
+	}
+
 	public function testSavesNodes()
 	{
 		$node = new Node();
@@ -39,5 +45,16 @@ class NodeTest extends TestCase
 		$query = new Query($this->client, $queryString, $properties);
 		$results = $query->getResultSet();
 		$this->assertEquals(1, $results[0]['count(n)']);
+	}
+
+	public function testSavedNodesGetId()
+	{
+		$node = new Node();
+		$node->setClient($this->client);
+		$this->assertNull($node->getId());
+		$properties = ["name" => "simon"];
+		$node->setProperties($properties);
+		$node->save();
+		$this->assertInternalType('int', $node->getId());
 	}
 }

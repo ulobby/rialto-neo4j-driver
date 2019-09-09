@@ -40,7 +40,7 @@ class Client
 		return $label;
 	}
 
-	public function getNode(int $id)
+	public function getNode(?int $id=null)
 	{
 		$node = $this->makeNode();
 		$node->setId($id);
