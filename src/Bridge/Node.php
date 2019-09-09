@@ -69,6 +69,10 @@ class Node
 				$this->setId((int)$value);
 				continue;
 			}
+			if ($property === 'labels') {
+				var_dump($value);
+				$this->addLabels($value);
+			}
 			$this->setProperty($property, $value);
 		}
 		return $this;
