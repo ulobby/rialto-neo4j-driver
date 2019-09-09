@@ -44,7 +44,8 @@ class Client
 	{
 		$node = $this->makeNode();
 		$node->setId($id);
-		
+		$this->loadNode($node);
+		return $node;
 	}
 
 	/**
@@ -58,6 +59,11 @@ class Client
 		$node = new Node();
 		$node->setClient($this);
 		return $node->setProperties($properties);
+	}
+
+	public function loadNode(Node $node)
+	{
+		return $node->load();	
 	}
 
 	public function runWriteTransaction(Transaction $transaction): ResultSet

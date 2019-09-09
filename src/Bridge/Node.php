@@ -102,4 +102,17 @@ class Node
 		$this->setId($self->getId());
 		return true;
 	}
+
+	public function load()
+	{
+		if (!$this->getId()) {
+			throw new \Exception("Trying to load a node that has not been created", 1);
+		}
+		$query = "MATCH (n) WHERE id(n) = {idn} RETURN n";
+		$queryObject = new CypherQuery($this->client, $query, ["idn" => $this->getId()]);
+		$results = $this->client->executeCypherQuery($queryObject);
+		$self = $results[0]["n"];
+		$this->setProperties($self->getProperties());
+		return true;
+	}
 }
