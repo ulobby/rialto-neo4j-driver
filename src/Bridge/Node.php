@@ -74,6 +74,7 @@ class Node
 			}
 			if ($property === 'labels') {
 				$this->addLabels($value);
+				continue;
 			}
 			$this->setProperty($property, $value);
 		}
