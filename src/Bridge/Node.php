@@ -40,6 +40,9 @@ class Node
 
 	public function addLabels(array $labels)
 	{
+		$labels = array_map(function($label) {
+			return new Label($label);
+		}, $labels);
 		$this->labels = array_merge($this->labels, $labels);
 	}
 
@@ -70,7 +73,6 @@ class Node
 				continue;
 			}
 			if ($property === 'labels') {
-				var_dump($value);
 				$this->addLabels($value);
 			}
 			$this->setProperty($property, $value);
