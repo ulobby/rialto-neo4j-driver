@@ -43,7 +43,7 @@ class Node
 		$labels = array_map(function($label) {
 			return new Label($label);
 		}, $labels);
-		$this->labels = array_merge($this->labels, $labels);
+		$this->labels = array_unique(array_merge($this->labels, $labels));
 	}
 
 	public function getLabels()
@@ -91,6 +91,13 @@ class Node
 		return $this;
 	}
 
+	public function populateFromNode(Node $node)
+	{
+		$this->setId($node->getId());
+		$this->setProperties($node->getProperties());
+		$this->addLabels($node->getLabels());
+	}
+
 	public function save()
 	{
 		$parameters= [];
@@ -106,7 +113,7 @@ class Node
 		$queryObject = new CypherQuery($this->client, $query, $parameters);
 		$results = $this->client->executeCypherQuery($queryObject);
 		$self = $results[0]['n'];
-		$this->setId($self->getId());
+		$this->populateFromNode($self);
 		return true;
 	}
 
@@ -119,7 +126,7 @@ class Node
 		$queryObject = new CypherQuery($this->client, $query, ["idn" => $this->getId()]);
 		$results = $this->client->executeCypherQuery($queryObject);
 		$self = $results[0]["n"];
-		$this->setProperties($self->getProperties());
+		$this->populateFromNode($self);
 		return true;
 	}
 }
