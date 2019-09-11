@@ -19,6 +19,16 @@ class EntityMapperTest extends TestCase
 		$this->assertInstanceOf(Node::class, $entity);
 	}
 
+	public function testMapsAllWhenReturningAsterisk()
+	{
+		$client = Mockery::mock(Client::class);
+		$queryString = "MATCH (p:Person)-[rel:RELATIONSHIP]->() RETURN *";
+		$query = new Query($client, $queryString);
+		$mapper = new EntityMapper($query);
+		$entity = $mapper->getEntityFor("p", []);
+		$this->assertInstanceOf(Node::class, $entity);
+	}
+
 	public function testMapsColumnsToRelationships()
 	{
 		$this->markTestIncomplete();

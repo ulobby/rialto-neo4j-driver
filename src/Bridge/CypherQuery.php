@@ -45,6 +45,16 @@ class CypherQuery
 		return $this->expectedColumns;
 	}
 
+	private function matchVariables(string $query)
+	{
+		$nodePattern = '/(?:\()(\w+)(?::?[\w]*)(?:\))/';
+		preg_match_all($nodePattern, $query, $nodeVars);
+		$returnVars = $nodeVars;
+		$relPattern = '/(?:\[)(\w+)(?::?[\w]*)(?:\])/';
+		preg_match_all($relPattern, $query, $relVars);
+		return array_merge($nodeVars[1], $relVars[1]);
+	}
+
 	/**
 	 * Parse out an array of return columns expected from the query
 	 * The query is assumed to follow the schema 
@@ -83,6 +93,9 @@ class CypherQuery
 				$unaliased = explode(" as ", $column);
 				return trim($unaliased[count($unaliased) - 1]);
 			}, $columns);
+		if ($columns[0] === "*") {
+			$columns = $this->matchVariables($text);
+		}
 		return $columns;
 	}
 }

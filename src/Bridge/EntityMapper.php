@@ -23,8 +23,8 @@ class EntityMapper
 	{
 		$mapping = array();
 		foreach ($columns as $column) {
-			$nodePattern = '/(?:\()' . $column. '(:?[\w]*)+(?:\))/';
-			$relPattern = '/(?:\[)' . $column. ':?[\w]*(?:\])/';
+			$nodePattern = '/(?:\()' . $column. '(?::?[\w]*\))/';
+			$relPattern = '/(?:\[)' . $column. '(?::?[\w]*\])/';
 			$isNode = preg_match($nodePattern, $query);
 			$isRel = preg_match($relPattern, $query);
 			if ($isNode && $isRel) {

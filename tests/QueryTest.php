@@ -33,5 +33,9 @@ class QueryTest extends TestCase
 		$queryString = "MATCH (p:Person) MATCH (l:Location) RETURN p AS simon, l AS location ORDER BY simon.name SKIP 10 LIMIT 30";
 		$query = new Query($client, $queryString);
 		$this->assertEquals(['simon', 'location'], $query->getExpectedColumns());
+
+		$queryString = "MATCH (p:Person) MATCH (l:Location) RETURN * ORDER BY simon.name SKIP 10 LIMIT 30";
+		$query = new Query($client, $queryString);
+		$this->assertEquals(['p', 'l'], $query->getExpectedColumns());
 	}
 }
