@@ -44,7 +44,7 @@ class EntityMapper
 
 	public function getEntityFor(string $key, $raw)
 	{
-		$type = $this->mapping[$key];
+		$type = isset($this->mapping[$key]) ? $this->mapping[$key] : null;
 		if ($type === "node") {
 			$node = new Node();
 			$node->setProperties($raw);
