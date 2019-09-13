@@ -24,8 +24,8 @@ class EntityMapper
 		$mapping = array();
 		foreach ($columns as $column) {
 			$escapedColumn = preg_quote($column);
-			$nodePattern = '/(?:\()' . $escapedColumn. '(?::[\w`]*\))/';
-			$relPattern = '/(?:\[)' . $escapedColumn. '(?::[\w`]*\])/';
+			$nodePattern = '/(?:\()' . $escapedColumn. '(?::?[\w`]*\))/';
+			$relPattern = '/(?:\[)' . $escapedColumn. '(?::?[\w`]*\])/';
 			$isNode = preg_match($nodePattern, $query);
 			$isRel = preg_match($relPattern, $query);
 			if ($isNode && $isRel) {
