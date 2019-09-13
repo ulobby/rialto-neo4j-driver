@@ -47,10 +47,10 @@ class CypherQuery
 
 	private function matchVariables(string $query)
 	{
-		$nodePattern = '/(?:\()(\w+)(?::?[\w]*)(?:\))/';
+		$nodePattern = '/(?:\()(\w+)(?::[\w`]*)(?:\))/';
 		preg_match_all($nodePattern, $query, $nodeVars);
 		$returnVars = $nodeVars;
-		$relPattern = '/(?:\[)(\w+)(?::?[\w]*)(?:\])/';
+		$relPattern = '/(?:\[)(\w+)(?::[\w`]*)(?:\])/';
 		preg_match_all($relPattern, $query, $relVars);
 		return array_merge($nodeVars[1], $relVars[1]);
 	}
@@ -93,7 +93,7 @@ class CypherQuery
 				$unaliased = explode(" as ", $column);
 				return trim($unaliased[count($unaliased) - 1]);
 			}, $columns);
-		if ($columns[0] === "*") {
+		if ($columns == ["*"]) {
 			$columns = $this->matchVariables($text);
 		}
 		return $columns;
