@@ -26,12 +26,6 @@ class NodeTest extends TestCase
 		$this->driver->close();
 	}
 
-	public function testCanCreateNodeWithoutId()
-	{
-		$node = $this->client->getNode();
-		$this->assertNull($node->getId());
-	}
-
 	public function testSavesNodes()
 	{
 		$node = new Node();
