@@ -4,7 +4,7 @@ function setup_cluster()
 HOST=$1
 INSTANCE=instance$HOST
 mkdir -p $INSTANCE $INSTANCE/conf $INSTANCE/logs $INSTANCE/data
-cp neo4j.conf.template $INSTANCE/conf/neo4j.conf
+cp ./neo4j.conf.template $INSTANCE/conf/neo4j.conf
 
 REPLACE_ME="# dbms.connectors.default_advertised_address="
 DEFAULT_ADDRESS="dbms.connectors.default_advertised_address=$INSTANCE"
